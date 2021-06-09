@@ -5,7 +5,6 @@ import {
   commands,
   ConfigurationChangeEvent,
   ExtensionContext,
-  notebook,
   NotebookCellStatusBarItemProvider,
   NotebookCell,
   CancellationToken,
@@ -26,6 +25,7 @@ import {
   workspace,
   StatusBarItem,
   StatusBarAlignment,
+  notebooks,
 } from "vscode";
 
 // this method is called when your extension is activated
@@ -133,31 +133,28 @@ class StatusbarProvider implements NotebookCellStatusBarItemProvider {
 
     const line = item.line;
     const character = item.character;
-    return [
-      new NotebookCellStatusBarItem(
-        `Ln ${line + 1}, Col ${character + 1}`,
-        NotebookCellStatusBarAlignment.Left,
-        undefined,
-        undefined,
-        999999999999999
-      ),
-    ];
+    const statusbar = new NotebookCellStatusBarItem(
+      `Ln ${line + 1}, Col ${character + 1}`,
+      NotebookCellStatusBarAlignment.Left
+    );
+    statusbar.priority = 999999999999999;
+    return [statusbar];
   }
   private registerProviders() {
     if (this.lineLocation === "statusbar") {
-      this.statusbar = window.createStatusBarItem({
-        id: "notebookLinePosition",
-        name: "notebookLine",
-        alignment: StatusBarAlignment.Right,
-        priority: 9999999999,
-      });
+      this.statusbar = window.createStatusBarItem(
+        "notebookLinePosition",
+        StatusBarAlignment.Right,
+        9999999999
+      );
     } else {
       this.statusbar?.hide();
       if (!this.cellStatusbarProvider) {
-        this.cellStatusbarProvider = notebook.registerNotebookCellStatusBarItemProvider(
-          { viewType: "*" },
-          this
-        );
+        this.cellStatusbarProvider =
+          notebooks.registerNotebookCellStatusBarItemProvider(
+            '*',
+            this
+          );
       }
     }
   }

@@ -17,21 +17,21 @@
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
-        "configuration": {
-            "type": "object",
-            "properties": {
-                "notebook.cursorPositionLocation": {
-                    "type": "string",
-                    "default": "statusbar",
-                    "enum": [
-                        "statusbar",
-                        "cellstatusbar"
-                    ],
-                    "description": "Displays cell line and column number in cell or window statusbar.",
-                    "scope": "machine"
-                }
-            }
-        },
+		"configuration": {
+			"type": "object",
+			"properties": {
+				"notebook.cursorPositionLocation": {
+					"type": "string",
+					"default": "statusbar",
+					"enum": [
+						"statusbar",
+						"cellstatusbar"
+					],
+					"description": "Displays cell line and column number in cell or window statusbar.",
+					"scope": "machine"
+				}
+			}
+		},
 		"commands": [
 			{
 				"command": "vscode-notebook-cell-linenumber.helloWorld",
@@ -50,14 +50,13 @@
 		"lint": "eslint src --ext ts",
 		"test": "node ./out/test/runTest.js",
 		"download-api": "vscode-dts dev",
-        "postdownload-api": "vscode-dts main",
-        "postinstall": "npm run download-api"
+		"postdownload-api": "vscode-dts main",
+		"postinstall": "npm run download-api"
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.3",
 		"@types/mocha": "^8.0.4",
 		"@types/node": "^12.11.7",
-		"@types/vscode": "^1.56.0",
 		"@typescript-eslint/eslint-plugin": "^4.14.1",
 		"@typescript-eslint/parser": "^4.14.1",
 		"eslint": "^7.19.0",
